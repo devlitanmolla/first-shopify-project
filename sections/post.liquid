@@ -1,0 +1,52 @@
+<section class="my-16">
+  <div class="container max-w-3xl mx-auto px-4">
+    <article class="bg-white rounded-2xl shadow-lg overflow-hidden">
+      {% if section.settings.photo %}
+      <div class="h-95 overflow-hidden">
+        <img 
+          src="{{ section.settings.photo | img_url: 'large' }}" 
+          alt="{{ article.title }}"
+          class="w-full h-full object-cover hover:scale-105 transition duration-500"
+        >
+      </div>
+      {% endif %}
+      <div class="p-6 md:p-10 space-y-6">
+        <h1 class="text-3xl md:text-4xl font-bold leading-tight">
+          {{ section.settings.title }}
+        </h1>
+        <div class="flex items-center gap-4 text-sm text-gray-500">
+          <span class="font-medium text-gray-800">
+            {{ article.author }}
+          </span>
+          <span>•</span>
+          <span>
+            {{ article.created_at | date: "%B %d, %Y" }}
+          </span>
+        </div>
+        <div class="w-full h-px bg-gray-200"></div>
+        <div class="prose prose-lg max-w-none">
+          {{ article.content }}
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+{% schema %}
+{
+    "name": "Edit Post",
+    "settings": [
+            {
+                "type": "image_picker",
+                "id": "photo",
+                "label": "Photo"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title",
+                "default":"{{article.title}}"
+            }
+        ]
+}
+{% endschema %}

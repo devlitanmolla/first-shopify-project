@@ -1,0 +1,8 @@
+{
+    "sections": {
+        "main":{
+            "type": "post"
+        }
+    },
+    "order": ["main"]
+}

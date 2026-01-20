@@ -1,0 +1,36 @@
+<section class="error-404 min-h-[90vh] grid place-items-center">
+  <div class="container text-center space-y-5">
+    <h1 class="text-5xl font-bold text-red-500">{{section.settings.heading}}</h1>
+    <h2 class="text-xl">{{section.settings.subheading}}</h2>
+
+    <a href="{{ routes.root_url }}" class="btn uppercase font-medium bg-black text-white px-5 py-2 rounded-md inline-block">
+      {{section.settings.btn}}
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "404 Page ",
+  "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "default":"404",
+        "label": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "default":"Not found",
+        "label": "Sub Heading"
+      },
+      {
+        "type": "text",
+        "id": "btn",
+        "default":"Home",
+        "label": "Btn Label"
+      }
+    ]
+}
+{% endschema %}
