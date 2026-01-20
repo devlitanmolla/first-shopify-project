@@ -1,0 +1,81 @@
+<header class="bg-gray-100 py-3" x-data="{ mobileMenuOpen: false }">
+  <div class="container">
+    <nav class="flex justify-between items-center">
+      <span class="inline-block text-xl font-bold">{{ section.settings.logo }}</span>
+      <button @click="mobileMenuOpen = !mobileMenuOpen" class="cursor-pointer md:hidden">{% render 'icon-bar' %}</button>
+      <ul class="md:flex gap-5 hidden">
+        {% for link in linklists[section.settings.menu].links %}
+          <li class="relative group">
+            <a class="flex items-center" href="{{link.url}}">
+              {{ link.title }}
+              {% if link.links != blank %}
+                {% render 'icon-down' %}
+              {% endif %}
+            </a>
+            {% if link.links != blank %}
+              <ul class="absolute min-w-30 bg-gray-100 px-5 text-center top-5 left-0 py-3 hidden group-hover:block">
+                {% for childlink in link.links %}
+                  <li class="border-b border-b-gray-200">
+                    <a href="{{childlink.url}}">{{ childlink.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+      <div class="md:flex items-center gap-5 hidden">
+        <a href="{{routes.cart_url}}">
+          {% render 'icon-cart' %}
+        </a>
+        {% if shop.customer_accounts_enabled %}
+          <a href="{{routes.account_login_url}}">{% render 'icon-login' %}</a>
+        {% endif %}
+      </div>
+    </nav>
+    {% comment %} Mobile Menu {% endcomment %}
+    <div class="md:hidden" x-show="mobileMenuOpen" x-transition @click.away="mobileMenuOpen = false">
+      <ul class="mt-5 space-y-2">
+        {% for link in linklists[section.settings.menu].links %}
+          <li class="relative group">
+            <a class="flex justify-between items-center" href="{{link.url}}">
+              {{ link.title }}
+              {% if link.links != blank %}
+                {% render 'icon-down' %}
+              {% endif %}
+            </a>
+            {% if link.links != blank %}
+              <ul class=" bg-gray-100 text-center top-5 right-0 py-3 hidden group-hover:block">
+                {% for childlink in link.links %}
+                  <li class="border-b border-b-gray-200">
+                    <a href="{{childlink.url}}">{{ childlink.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Editable Header",
+  "settings": [
+      {
+        "type": "text",
+        "id": "logo",
+        "default":"{shop.name}",
+        "label": "Custommize Logo"
+      },
+      {
+        "type": "link_list",
+        "id": "menu",
+        "default":"main-menu",
+        "label": "Custommize Menu"
+      }
+    ]
+}
+{% endschema %}
