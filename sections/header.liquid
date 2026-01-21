@@ -1,7 +1,11 @@
 <header class="bg-gray-100 py-3" x-data="{ mobileMenuOpen: false }">
   <div class="container">
     <nav class="flex justify-between items-center">
-      <span class="inline-block text-xl font-bold">{{ section.settings.logo }}</span>
+      {% if section.settings.logo != "-" %}
+        <span class="inline-block text-xl font-bold">{{ section.settings.logo }}</span>
+        {% else %}
+          <span class="inline-block text-xl font-bold">{{shop.name}}</span>
+      {% endif %}
       <button @click="mobileMenuOpen = !mobileMenuOpen" class="cursor-pointer md:hidden">{% render 'icon-bar' %}</button>
       <ul class="md:flex gap-5 hidden">
         {% for link in linklists[section.settings.menu].links %}
@@ -67,7 +71,7 @@
       {
         "type": "text",
         "id": "logo",
-        "default":"{shop.name}",
+        "default":"-",
         "label": "Custommize Logo"
       },
       {
